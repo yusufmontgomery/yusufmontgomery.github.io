@@ -533,12 +533,7 @@
                 <span class="countdown-lbl">Saniye</span>
             </div>
         </div>
-
-        <div class="date-setter">
-            <label>Doğum Gününü Seç</label>
-            <input type="date" id="birthdayInput">
-        </div>
-
+        
         <br>
         <button class="confetti-btn" onclick="launchConfetti()">
             🎉 Kutlamayı Başlat!
@@ -625,7 +620,9 @@
 <script>
     /* GERİ SAYIM */
     let targetDate = new Date(2026, 2, 27, 0, 0, 0);
-
+    if (targetDate < new Date()) {
+    targetDate.setFullYear(targetDate.getFullYear() + 1);
+    }
     function updateCountdown() {
         if (!targetDate) return;
         const now  = new Date();
@@ -650,13 +647,6 @@
         document.getElementById('cd-mins').textContent  = String(mins).padStart(2,'0');
         document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
     }
-
-    document.getElementById('birthdayInput').addEventListener('change', function () {
-        const [y, m, d] = this.value.split('-').map(Number);
-        targetDate = new Date(y, m - 1, d, 0, 0, 0);
-        if (targetDate < new Date()) targetDate.setFullYear(targetDate.getFullYear() + 1);
-        updateCountdown();
-    });
 
     setInterval(updateCountdown, 1000);
 
